@@ -536,7 +536,7 @@ function main() {
     pwd
   )
 #  yum install -y dos2unix
- prepare_base_install
+  prepare_base_install
   prepare_conf
   ports_check
   #setup_iptables
