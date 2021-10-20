@@ -14,18 +14,7 @@ File_Trace_port=5000
 
 function install_soft() {
   echo -e "[ start install soft [ $1 ]"
-  if command -v yum >/dev/null; then
-    yum -q -y install $1
-  elif command -v apt >/dev/null; then
-    apt-get -qqy install $1
-  elif command -v zypper >/dev/null; then
-    zypper -q -n install $1
-  elif command -v apk >/dev/null; then
-    apk add -q $1
-  else
-    echo -e "[\033[31m ERROR \033[0m] Please install it first $1 "
-    exit 1
-  fi
+  apt-get -qqy install $1
 }
 
 function exit_if_process_error() {
