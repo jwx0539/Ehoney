@@ -237,7 +237,7 @@ function prepare_conf() {
 }
 
 function component_installer() {
-#  setupDocker # 安装Docker
+  setupDocker # 安装Docker
   setupK3s    # 安装K3S
   setupFalco
   setupRedis       # 安装Redis
@@ -394,7 +394,7 @@ function install_Docker() {
 
   # 启动docker引擎并设置开机启动
   sudo systemctl daemon-reload
-  sudo systemctl start docker
+  sudo systemctl restart docker
   sudo systemctl enable docker
   # 配置当前用户对docker的执行权限
 
