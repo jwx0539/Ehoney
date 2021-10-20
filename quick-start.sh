@@ -383,7 +383,7 @@ function install_Docker() {
 #  sudo yum install -y docker-ce
 
   # 配置docker文件
-  sed -i "13c ExecStart=/usr/bin/dockerd --insecure-registry=47.96.71.197:90" /lib/systemd/system/docker.service
+  sed -i "14c ExecStart=/usr/bin/dockerd --insecure-registry=47.96.71.197:90" /lib/systemd/system/docker.service
 
   #  sudo tee /etc/docker/daemon.json <<-'EOF'
   #  {
