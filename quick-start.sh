@@ -14,18 +14,7 @@ File_Trace_port=5000
 
 function install_soft() {
   echo -e "[ start install soft [ $1 ]"
-  if command -v yum >/dev/null; then
-    yum -q -y install $1
-  elif command -v apt >/dev/null; then
-    apt-get -qqy install $1
-  elif command -v zypper >/dev/null; then
-    zypper -q -n install $1
-  elif command -v apk >/dev/null; then
-    apk add -q $1
-  else
-    echo -e "[\033[31m ERROR \033[0m] Please install it first $1 "
-    exit 1
-  fi
+  apt-get -qqy install $1
 }
 
 function exit_if_process_error() {
@@ -111,7 +100,7 @@ function kill_if_process_exist() {
 
 # 检查软件是否安装 curl wget zip go redis mysql docker kubectl;
 function prepare_base_install() {
-  for i in yum vim wget curl unzip kernel-devel-$(uname -r); do
+  for i in vim wget curl unzip dos2unix lsof net-tools kernel-devel-$(uname -r); do
     command -v $i &>/dev/null || install_soft $i
   done
   # yumRepoUpdate
@@ -248,7 +237,7 @@ function prepare_conf() {
 }
 
 function component_installer() {
-  setupDocker # 安装Docker
+#  setupDocker # 安装Docker
   setupK3s    # 安装K3S
   setupFalco
   setupRedis       # 安装Redis
@@ -536,11 +525,11 @@ function main() {
     cd $(dirname $0)
     pwd
   )
-  yum install -y dos2unix
+  prepare_base_install
+#  yum install -y dos2unix
   prepare_conf
   ports_check
   #setup_iptables
-  prepare_base_install
   component_installer
   echo "----------------------------------------------------------"
   echo "all the services are ready and happy to use!!!"
