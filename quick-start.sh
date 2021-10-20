@@ -352,7 +352,7 @@ function setupDocker() {
     echo "docker is uninstalled, start install!"
     install_Docker
   else
-    if [ $(grep -c "47.96.71.197:90" /usr/lib/systemd/system/docker.service) -eq '1' ]; then
+    if [ $(grep -c "47.96.71.197:90" /lib/systemd/system/docker.service) -eq '1' ]; then
       echo "docker.service is configured, skip!"
     else
       echo "docker is unconfigured, restart install!"
@@ -367,23 +367,23 @@ function setupDocker() {
 
 function install_Docker() {
   echo "--------------------Start deploying Docker-----------------------------"
-  #  安装依赖包
-  sudo yum install -y yum-utils \
-    device-mapper-persistent-data \
-    lvm2
-  # centos8 需要
-  # yum install -y https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm
-  # 添加源，使用了阿里云镜像
-  sudo yum-config-manager \
-    --add-repo \
-    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-  # 配置缓存
-  sudo yum makecache fast
-  # 安装最新稳定版本的docker
-  sudo yum install -y docker-ce
+#  #  安装依赖包
+#  sudo yum install -y yum-utils \
+#    device-mapper-persistent-data \
+#    lvm2
+#  # centos8 需要
+#  # yum install -y https://download.docker.com/linux/fedora/30/x86_64/stable/Packages/containerd.io-1.2.6-3.3.fc30.x86_64.rpm
+#  # 添加源，使用了阿里云镜像
+#  sudo yum-config-manager \
+#    --add-repo \
+#    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+#  # 配置缓存
+#  sudo yum makecache fast
+#  # 安装最新稳定版本的docker
+#  sudo yum install -y docker-ce
 
   # 配置docker文件
-  sed -i "13c ExecStart=/usr/bin/dockerd --insecure-registry=47.96.71.197:90" /usr/lib/systemd/system/docker.service
+  sed -i "13c ExecStart=/usr/bin/dockerd --insecure-registry=47.96.71.197:90" /lib/systemd/system/docker.service
 
   #  sudo tee /etc/docker/daemon.json <<-'EOF'
   #  {
